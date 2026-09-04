@@ -43,6 +43,17 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1788535493835",
+        "title": "生化危机9",
+        "rating": 0,
+        "status": "想玩",
+        "category": "",
+        "date": "2026-09-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "games-1788535482774",
         "title": "地铁：离去",
         "rating": 0,
