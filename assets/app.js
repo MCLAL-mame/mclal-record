@@ -93,6 +93,7 @@
   var state = { board: data.boards[0].key, year: "全部", query: "", status: "", sort: "date_desc", admin: false };
   var editing = { entryId: null };
   var detailId = null;
+  var currentCoverPos = "50% 50%";
 
   var $ = function (id) { return document.getElementById(id); };
   var grid = $("grid"), empty = $("empty"), tabs = $("tabs"), yearTabs = $("yearTabs");
@@ -202,7 +203,7 @@
 
     grid.innerHTML = list.map(function (it) {
       var cover = it.cover
-        ? '<div class="cover"><img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:cover"></div>'
+        ? '<div class="cover"><img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:cover;object-position:' + escapeHtml(it.coverPos || "50% 50%") + '"></div>'
         : '<div class="cover">' + escapeHtml(b.emoji) + "</div>";
       var score = it.rating > 0
         ? '<span class="stars">' + stars10(it.rating) + '</span><span class="score">' + Number(it.rating) + "/10</span>" : "";
@@ -230,7 +231,7 @@
     var b = boardOf(f.boardKey), it = f.rec;
     detailId = id;
     $("detailCover").innerHTML = it.cover
-      ? '<img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:12px">'
+      ? '<img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:cover;object-position:' + escapeHtml(it.coverPos || "50% 50%") + ';border-radius:12px">'
       : escapeHtml(b.emoji);
     $("detailTitle").textContent = it.title || "（无标题）";
     var score = it.rating > 0
@@ -262,6 +263,7 @@
     $("f-rating").value = it ? it.rating : "";
     $("f-date").value = it ? it.date : new Date().toISOString().slice(0, 10);
     $("f-cover").value = it ? it.cover : "";
+    currentCoverPos = (it && it.coverPos) ? it.coverPos : "50% 50%";
     updateCoverPreview();
     $("f-review").value = it ? it.review : "";
     $("f-year-new").value = "";
@@ -284,7 +286,8 @@
       category: $("f-category").value,
       date: $("f-date").value,
       review: $("f-review").value.trim(),
-      cover: $("f-cover").value.trim()
+      cover: $("f-cover").value.trim(),
+      coverPos: currentCoverPos
     };
     var key = rkey(state.board, year);
     if (!data.records[key]) data.records[key] = [];
@@ -395,8 +398,27 @@
   }
   function updateCoverPreview() {
     var v = $("f-cover").value.trim(), prev = $("coverPreview");
-    if (v) { prev.src = v; prev.hidden = false; $("coverClearBtn").hidden = false; }
-    else { prev.hidden = true; prev.removeAttribute("src"); $("coverClearBtn").hidden = true; }
+    if (v) { prev.src = v; prev.hidden = false; prev.style.objectPosition = currentCoverPos; $("coverClearBtn").hidden = false; $("coverHint").hidden = false; }
+    else { prev.hidden = true; prev.removeAttribute("src"); $("coverClearBtn").hidden = true; $("coverHint").hidden = true; }
+  }
+  function uploadCoverToRepo(dataUrl, name) {
+    return new Promise(function (resolve, reject) {
+      var b64 = String(dataUrl).split(",")[1];
+      if (!b64) return reject(new Error("图片数据异常"));
+      if (!CONFIG) return reject(new Error("未配置仓库"));
+      var u = "https://api.github.com/repos/" + CONFIG.owner + "/" + CONFIG.repo + "/contents/images/" + name;
+      fetch(u, {
+        method: "PUT",
+        headers: ghHeaders({ "Content-Type": "application/json" }),
+        body: JSON.stringify({ message: "add cover " + name, content: b64, branch: CONFIG.branch })
+      }).then(function (r) {
+        if (!r.ok) return r.json().then(function (e) { reject(new Error("HTTP " + r.status + " " + (e && e.message ? e.message : ""))); },
+          function () { reject(new Error("HTTP " + r.status)); });
+        return r.json();
+      }).then(function () {
+        resolve("https://raw.githubusercontent.com/" + CONFIG.owner + "/" + CONFIG.repo + "/" + CONFIG.branch + "/images/" + name);
+      }).catch(reject);
+    });
   }
   function handleCoverFile(file) {
     if (!file) return;
@@ -413,11 +435,20 @@
         var canvas = document.createElement("canvas");
         canvas.width = w; canvas.height = h;
         canvas.getContext("2d").drawImage(img, 0, 0, w, h);
-        var url;
-        try { url = canvas.toDataURL("image/jpeg", 0.82); } catch (e) { url = reader.result; }
-        if (url.length > 950 * 1024) url = canvas.toDataURL("image/jpeg", 0.6); // 仍过大再压
-        $("f-cover").value = url;
-        updateCoverPreview();
+        var dataUrl;
+        try { dataUrl = canvas.toDataURL("image/jpeg", 0.82); } catch (e) { dataUrl = reader.result; }
+        if (dataUrl.length > 950 * 1024) dataUrl = canvas.toDataURL("image/jpeg", 0.6); // 仍过大再压
+        var name = "cover-" + Date.now() + "-" + Math.floor(Math.random() * 1e4) + ".jpg";
+        if (ghToken()) {
+          uploadCoverToRepo(dataUrl, name).then(function (u) {
+            $("f-cover").value = u; updateCoverPreview();
+          }).catch(function (e) {
+            $("f-cover").value = dataUrl; updateCoverPreview();
+            alert("图片存到仓库失败（" + e.message + "），已改为内嵌方式；内嵌会占用数据体积，建议检查令牌权限。");
+          });
+        } else {
+          $("f-cover").value = dataUrl; updateCoverPreview();
+        }
       };
       img.onerror = function () { alert("图片读取失败，换一张试试。"); };
       img.src = reader.result;
@@ -468,6 +499,15 @@
     this.value = "";
   });
   $("coverClearBtn").addEventListener("click", function () { $("f-cover").value = ""; updateCoverPreview(); });
+  $("coverPreview").addEventListener("click", function (e) {
+    var rect = this.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    var x = Math.round((e.clientX - rect.left) / rect.width * 100);
+    var y = Math.round((e.clientY - rect.top) / rect.height * 100);
+    x = Math.max(0, Math.min(100, x)); y = Math.max(0, Math.min(100, y));
+    currentCoverPos = x + "% " + y + "%";
+    this.style.objectPosition = currentCoverPos;
+  });
   $("tokenBtn").addEventListener("click", function () {
     var t = prompt("粘贴你的 GitHub 个人访问令牌（PAT，需 repo 权限）。\n它只保存在你这台浏览器的本机，不会写进代码。", "");
     if (t) { localStorage.setItem("recsite-gh-token", t.trim()); alert("令牌已保存（仅本机浏览器）。之后在管理模式里的增删改会自动同步到分享链接。"); }
