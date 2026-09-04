@@ -408,6 +408,17 @@
     ],
     "film::2026": [
       {
+        "id": "film-1788536868007",
+        "title": "玉子市场",
+        "rating": 0,
+        "status": "待看",
+        "category": "",
+        "date": "2026-09-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "film-1788536619989",
         "title": "野良神",
         "rating": 0,
