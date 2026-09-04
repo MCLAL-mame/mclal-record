@@ -1,119 +1,121 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="zh-CN" data-page-node-id="5S7WDpTqxYHqiO6ILDv7sD">
+<head data-page-node-id="wxWYkhYBf3pb75YNaOlgnj">
+  <meta charset="utf-8" data-page-node-id="6wRmThYwa7dtxDafH2KSog">
+  <meta name="viewport" content="width=device-width, initial-scale=1" data-page-node-id="D7NKlF5R99MQThN8BvH5Jd">
   <title>MCLAL的书影游记录</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" data-page-node-id="3LcGawhEeAUGyZ2lxUSvi1">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin data-page-node-id="ROE8p9BpEIv7FIqVbTKSBt">
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" data-page-node-id="U0NKm7tUyJ0QtCtsdkTnzO">
+  <link rel="stylesheet" href="assets/style.css" data-page-node-id="typZl3UyXNfwDeV4wy6lGQ">
 </head>
-<body>
-  <header class="site-header">
-    <div class="wrap">
-      <button id="themeToggle" class="theme-toggle" title="切换深色 / 浅色">🌙</button>
-      <h1>MCLAL的书影游记录</h1>
-      <p class="subtitle">游戏 · 影视 · 书籍</p>
+<body data-page-node-id="3DxEjw1PV313AmCChzXm3C">
+  <header class="site-header" data-page-node-id="375uUfe0sACb5Nv0RpBIxC">
+    <div class="wrap" data-page-node-id="GP5i7cmgKr9SH1HoHDmGrU">
+      <button id="themeToggle" class="theme-toggle" title="切换深色 / 浅色" data-page-node-id="bfvTI0ZbYVxNYUDqqqDyM2">🌙</button>
+      <h1 data-page-node-id="VGy7V8eS4jFbNonXMPM9tC">MCLAL的书影游记录</h1>
+      <p class="subtitle" data-page-node-id="KtnkU10hHwDCXncOKSKuqQ">游戏 · 影视 · 书籍</p>
     </div>
   </header>
 
-  <main class="wrap">
-    <nav id="tabs" class="tabs"></nav>
-    <nav id="yearTabs" class="year-tabs"></nav>
+  <main class="wrap" data-page-node-id="XmF0GsEcoVjsEbWgaEC0Cp">
+    <nav id="tabs" class="tabs" data-page-node-id="10MGF3fHL0Dbzps4ShczaM"></nav>
+    <nav id="yearTabs" class="year-tabs" data-page-node-id="L9SiqVDsOcEp99CgeCyo97"></nav>
 
-    <div class="toolbar">
-      <input id="search" type="search" placeholder="搜索标题或评价…">
-      <select id="filter"></select>
-      <select id="sort">
-        <option value="date_desc">时间（新→旧）</option>
-        <option value="date_asc">时间（旧→新）</option>
-        <option value="rating_desc">评分（高→低）</option>
-        <option value="rating_asc">评分（低→高）</option>
-        <option value="title">标题（A→Z）</option>
+    <div class="toolbar" data-page-node-id="emZz28EkNXS2CVZA0fKvXE">
+      <input id="search" type="search" placeholder="搜索标题或评价…" data-page-node-id="I0AKmdnYYNq6RJhWgeYCBa">
+      <select id="filter" data-page-node-id="BLuW4eL72Cea5OZTVPEECD"></select>
+      <select id="sort" data-page-node-id="8wMAZY9EKrxLSekKjBvurr">
+        <option value="date_desc" data-page-node-id="DPra2dcNsmIvzHnLjeKqdK">时间（新→旧）</option>
+        <option value="date_asc" data-page-node-id="htK4QpFbwMtB0XGG84Rctn">时间（旧→新）</option>
+        <option value="rating_desc" data-page-node-id="n24269UdAkEoRtxy64CBK0">评分（高→低）</option>
+        <option value="rating_asc" data-page-node-id="UNSWXXjbQfxJ779upyRbl9">评分（低→高）</option>
+        <option value="title" data-page-node-id="qV0qNKu6m9oFqI1jGCFPje">标题（A→Z）</option>
       </select>
-      <button id="adminBtn" class="admin-tab">🔧 管理</button>
+      <button id="adminBtn" class="admin-tab" data-page-node-id="HI7XEHMGrxpOOHVHhrnGdw">🔧 管理</button>
     </div>
 
-    <div id="adminBar" class="admin-bar" hidden>
-      <span class="admin-tag">管理模式</span>
-      <button id="addEntryBtn" class="btn">＋ 添加记录</button>
-      <button id="boardBtn" class="btn ghost">板块管理</button>
-      <button id="exportBtn" class="btn ghost">导出备份</button>
-      <button id="tokenBtn" class="btn ghost">设置令牌</button>
-      <button id="exitAdmin" class="btn ghost">退出管理</button>
+    <div id="adminBar" class="admin-bar" hidden data-page-node-id="ZuI9Z8Vb34ODfAMWjIwHqj">
+      <span class="admin-tag" data-page-node-id="6wpLRDav9zg9CQ9BWGnNG3">管理模式</span>
+      <button id="addEntryBtn" class="btn" data-page-node-id="JSHFlaZeAJihGeKtsFWWsm">＋ 添加记录</button>
+      <button id="boardBtn" class="btn ghost" data-page-node-id="NFCiBM2RviL3agsV3LfjQ8">板块管理</button>
+      <button id="exportBtn" class="btn ghost" data-page-node-id="vgDSpYoOOKVT4uVYuGEJHn">导出备份</button>
+      <button id="importBtn" class="btn ghost" data-page-node-id="imp0BtnMCLAL">导入备份</button>
+      <button id="tokenBtn" class="btn ghost" data-page-node-id="AUCRkOTvvxlV2gp6kuCLo0">设置令牌</button>
+      <input id="importFile" type="file" accept="application/json,.json" hidden data-page-node-id="imp0FileMCLAL">
+      <button id="exitAdmin" class="btn ghost" data-page-node-id="isGuWvXy6lgGzNjaslOHLt">退出管理</button>
     </div>
 
-    <div id="grid" class="grid"></div>
-    <div id="empty" class="empty" hidden>
+    <div id="grid" class="grid" data-page-node-id="XJA0FZqosLA6jw1EBYjWGI"></div>
+    <div id="empty" class="empty" hidden data-page-node-id="PxGm1UBVSmLqbJDbtWXXJA">
       这里还没有记录。进入「管理」模式，点「＋ 添加记录」开始吧。
     </div>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer" data-page-node-id="iGIoWNkycfe4rt7obzI0FL">
     数据默认保存在你本机浏览器中。接入云端后，分享链接也会实时更新。
   </footer>
 
   <!-- 详情弹窗 -->
-  <div id="detailModal" class="modal" hidden>
-    <div class="modal-box">
-      <div id="detailCover" class="detail-cover"></div>
-      <h3 id="detailTitle" class="detail-title"></h3>
-      <div class="detail-meta" id="detailMeta"></div>
-      <div class="detail-review" id="detailReview"></div>
-      <div class="modal-actions" id="detailActions" hidden>
-        <button id="detailEdit" class="btn ghost">编辑</button>
-        <button id="detailDelete" class="btn ghost">删除</button>
+  <div id="detailModal" class="modal" hidden data-page-node-id="DkatyWePmsMaGeFuBEqPR5">
+    <div class="modal-box" data-page-node-id="z3U7VufOLhIHXAclS3pVn5">
+      <div id="detailCover" class="detail-cover" data-page-node-id="qYhDNta8w5iklsDFj3qEz8"></div>
+      <h3 id="detailTitle" class="detail-title" data-page-node-id="1LTemJH7O7VjfmtxO4mCsd"></h3>
+      <div class="detail-meta" id="detailMeta" data-page-node-id="fL4aNvw0guvWUSddU2aKeR"></div>
+      <div class="detail-review" id="detailReview" data-page-node-id="iA1IvZtkYHjsNCtb4t2Gas"></div>
+      <div class="modal-actions" id="detailActions" hidden data-page-node-id="IWgfBFAiSQWP0YA42oIWdf">
+        <button id="detailEdit" class="btn ghost" data-page-node-id="38KAXNje0PbKLKoHrBUzpk">编辑</button>
+        <button id="detailDelete" class="btn ghost" data-page-node-id="YAqRejQJHp4HAEvStUI0tg">删除</button>
       </div>
-      <div class="modal-actions">
-        <button id="detailClose" class="btn">关闭</button>
+      <div class="modal-actions" data-page-node-id="QYat4VdKAfGsVHnhzzUwuI">
+        <button id="detailClose" class="btn" data-page-node-id="bfGwCUeWw82uNrQzcVLZwg">关闭</button>
       </div>
     </div>
   </div>
 
   <!-- 记录编辑弹窗 -->
-  <div id="entryModal" class="modal" hidden>
-    <div class="modal-box">
-      <h3 id="entryModalTitle">添加记录</h3>
-      <label>标题<input id="f-title" type="text" placeholder="必填"></label>
-      <label>年份
-        <select id="f-year"></select>
-        <input id="f-year-new" type="text" placeholder="或输入新年份，如 2024" style="margin-top:8px">
+  <div id="entryModal" class="modal" hidden data-page-node-id="DWrrx45UMSB5nsLzgrlDc9">
+    <div class="modal-box" data-page-node-id="Hvvr0Y5G9JE5xXD6uDXHpG">
+      <h3 id="entryModalTitle" data-page-node-id="EbqeW2uKrBgdeLu7wvk7iY">添加记录</h3>
+      <label data-page-node-id="x2CgG1Mj1qcU9b8dqCd2lE">标题<input id="f-title" type="text" placeholder="必填" data-page-node-id="udNNjEdBYISaUCg2Ot7qCJ"></label>
+      <label data-page-node-id="UtBjYvHbPLrzX2YBEe4KAs">年份
+        <select id="f-year" data-page-node-id="rZdgPBWRLCQyMTvokAg2b9"></select>
+        <input id="f-year-new" type="text" placeholder="或输入新年份，如 2024" style="margin-top:8px" data-page-node-id="YRWcvOKvYNyp3lFCHLPaJ9">
       </label>
-      <label>状态<select id="f-status"></select></label>
-      <label>分类（平台）
-        <select id="f-category">
-          <option value="">无</option>
-          <option value="PS">PS</option>
-          <option value="NS">NS</option>
-          <option value="PC">PC</option>
+      <label data-page-node-id="GA4wfCEUrujacNT1bCJbSY">状态<select id="f-status" data-page-node-id="nAFDKuiOSQDAEhyeMhPD2J"></select></label>
+      <label data-page-node-id="5uhzzDJZokqmDvLmCBwvYe">分类（平台）
+        <select id="f-category" data-page-node-id="J0uUCJnlFGcZmEXkeaorIb">
+          <option value="" data-page-node-id="WSuSuJ93U0kwh8lljgEaUH">无</option>
+          <option value="PS" data-page-node-id="WeZDX0pf3lBZWhCYAKkbOw">PS</option>
+          <option value="NS" data-page-node-id="5spoKDF91DZBItB3EgXEsG">NS</option>
+          <option value="PC" data-page-node-id="2BKl9y0l97vtSjnd5hEueD">PC</option>
         </select>
       </label>
-      <label>评分（1–10，可含 .5）<input id="f-rating" type="number" min="1" max="10" step="0.5"></label>
-      <label>日期<input id="f-date" type="date"></label>
-      <label>封面图链接<input id="f-cover" type="text" placeholder="留空则用占位图标"></label>
-      <label>评价<textarea id="f-review" rows="4" placeholder="写点什么…"></textarea></label>
-      <div class="modal-actions">
-        <button id="entryCancel" class="btn ghost">取消</button>
-        <button id="entrySave" class="btn">保存</button>
+      <label data-page-node-id="DMYqHoWps9BKZ1B5dLuge7">评分（1–10，可含 .5）<input id="f-rating" type="number" min="1" max="10" step="0.5" data-page-node-id="d4ytF8FGvcbwVfI8oHZPUE"></label>
+      <label data-page-node-id="Nj2PHoR8qgImMnMG1U7LVN">日期<input id="f-date" type="date" data-page-node-id="CgCF0bdIIHhRlJDNHQHrBV"></label>
+      <label data-page-node-id="QHD4OZqtgJBjbDCGGUlDMD">封面图链接<input id="f-cover" type="text" placeholder="留空则用占位图标" data-page-node-id="kU4CHp43mwBmsJVjYoZA9o"></label>
+      <label data-page-node-id="E11DYCiFEFk0yIwHmgxuj2">评价<textarea id="f-review" rows="4" placeholder="写点什么…"></textarea></label>
+      <div class="modal-actions" data-page-node-id="yTpAh8affsO2A8PLZuAJZb">
+        <button id="entryCancel" class="btn ghost" data-page-node-id="l2Kf9bVKaryv7JgR1ZEIbg">取消</button>
+        <button id="entrySave" class="btn" data-page-node-id="5wEAfjzW3RiiHwFjl8H9lt">保存</button>
       </div>
     </div>
   </div>
 
   <!-- 板块管理弹窗 -->
-  <div id="boardModal" class="modal" hidden>
-    <div class="modal-box">
-      <h3>板块管理</h3>
-      <div id="boardList" class="board-list"></div>
-      <hr>
-      <h4 id="boardFormTitle">新增板块</h4>
-      <label>板块名称<input id="b-name" type="text" placeholder="如：音乐"></label>
-      <label>图标（emoji）<input id="b-emoji" type="text" maxlength="4" placeholder="如：🎵"></label>
-      <label>状态项（逗号分隔）<input id="b-statuses" type="text" placeholder="待看,看了,在看"></label>
-      <label>年份（逗号分隔，可改可加）<input id="b-years" type="text" placeholder="2026,2025,2024"></label>
-      <div class="modal-actions">
-        <button id="boardCancel" class="btn ghost">关闭</button>
-        <button id="boardSave" class="btn">保存板块</button>
+  <div id="boardModal" class="modal" hidden data-page-node-id="d71PStGGGqUaid72rd5ntW">
+    <div class="modal-box" data-page-node-id="HujPTiLf5bGmOGGMnNDvIg">
+      <h3 data-page-node-id="dudUXsikaBFiP1D0VIaofG">板块管理</h3>
+      <div id="boardList" class="board-list" data-page-node-id="387DGOIHIToJXNGEZSGQJn"></div>
+      <hr data-page-node-id="Zcn7mtGAQVEOYap90g3cWl">
+      <h4 id="boardFormTitle" data-page-node-id="D86glGSA5IxzcbeLcI8IKd">新增板块</h4>
+      <label data-page-node-id="nGqYDpDAcgSxn8GYB2TYVC">板块名称<input id="b-name" type="text" placeholder="如：音乐" data-page-node-id="oTBCM58sL9dNUFz5ALiwtC"></label>
+      <label data-page-node-id="EAFDH4USgcnnWopXjJ8DYQ">图标（emoji）<input id="b-emoji" type="text" maxlength="4" placeholder="如：🎵" data-page-node-id="JFFPlVFzctNoSbpskWFkRm"></label>
+      <label data-page-node-id="lyeDc6bhimpJb5dDQJirz7">状态项（逗号分隔）<input id="b-statuses" type="text" placeholder="待看,看了,在看" data-page-node-id="fmTyN5dnc3jA3otzlMcptB"></label>
+      <label data-page-node-id="FZWAhC9yQdrvRJQUxcYnMd">年份（逗号分隔，可改可加）<input id="b-years" type="text" placeholder="2026,2025,2024" data-page-node-id="OUda17t6RXzjUU5kUGYNBL"></label>
+      <div class="modal-actions" data-page-node-id="fin99qUVfODInxA5VXFcAP">
+        <button id="boardCancel" class="btn ghost" data-page-node-id="V5CY7HsY5hmxwEqq3i7gj2">关闭</button>
+        <button id="boardSave" class="btn" data-page-node-id="IV6OhIZ93NJamTRCPu8sZq">保存板块</button>
       </div>
     </div>
   </div>
