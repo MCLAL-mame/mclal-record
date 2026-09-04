@@ -43,6 +43,17 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1788535465958",
+        "title": "刺客信条：英灵殿",
+        "rating": 0,
+        "status": "想玩",
+        "category": "PS",
+        "date": "2026-09-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "games-1788535418730",
         "title": "羊蹄山之魂",
         "rating": 0,
