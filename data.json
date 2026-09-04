@@ -43,6 +43,17 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1788535216976",
+        "title": "百日战纪-最终防卫学园-",
+        "rating": 0,
+        "status": "想玩",
+        "category": "",
+        "date": "2026-09-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "games-1788535191450",
         "title": "终天教团",
         "rating": 0,
