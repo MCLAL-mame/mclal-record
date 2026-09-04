@@ -408,6 +408,17 @@
     ],
     "film::2026": [
       {
+        "id": "film-1788538057744",
+        "title": "怪物",
+        "rating": 0,
+        "status": "待看",
+        "category": "",
+        "date": "2026-09-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "film-1788538024296",
         "title": "步履不停",
         "rating": 0,
