@@ -43,6 +43,17 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1788535635771",
+        "title": "真女神转生5",
+        "rating": 0,
+        "status": "在玩",
+        "category": "NS",
+        "date": "2026-09-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "games-1788535619224",
         "title": "塞尔达传说：王国之泪",
         "rating": 0,
