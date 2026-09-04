@@ -43,6 +43,17 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1788534755674",
+        "title": "双点博物馆",
+        "rating": 9,
+        "status": "玩过",
+        "category": "PC",
+        "date": "2026-09-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "games-1788534005385",
         "title": "巫师3：狂猎",
         "rating": 9,
