@@ -43,9 +43,16 @@
   function apiUrl() {
     return CONFIG ? "https://api.github.com/repos/" + CONFIG.owner + "/" + CONFIG.repo + "/contents/" + CONFIG.file : null;
   }
+  function ghHeaders(extra) {
+    var h = { "Accept": "application/vnd.github+json" };
+    var tk = ghToken();
+    if (tk) h["Authorization"] = "Bearer " + tk;
+    if (extra) for (var k in extra) h[k] = extra[k];
+    return h;
+  }
   function loadRemote() {
     var u = apiUrl(); if (!u) return;
-    fetch(u).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+    fetch(u, { headers: ghHeaders() }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
       if (!j || !j.content) return;
       try {
         var obj = JSON.parse(b64decode(j.content));
@@ -58,15 +65,26 @@
     var u = apiUrl(), tk = ghToken();
     if (!u) return;
     if (!tk) { alert("请先在管理模式点「设置令牌」填入 GitHub 个人访问令牌（PAT，需 repo 权限）。"); return; }
-    fetch(u).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+    // 取当前 SHA 时必须带令牌：未认证 GET 限额仅 60 次/小时，超限会 403，
+    // 导致 sha 缺失、PUT 变成“更新却无 sha”而被 GitHub 拒收（HTTP 422）。
+    fetch(u, { headers: ghHeaders() }).then(function (r) {
+      if (!r.ok) throw new Error("读取远端失败 HTTP " + r.status);
+      return r.json();
+    }).then(function (j) {
       var sha = j && j.sha ? j.sha : undefined;
       return fetch(u, {
         method: "PUT",
-        headers: { "Authorization": "Bearer " + tk, "Content-Type": "application/json" },
+        headers: ghHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({ message: "update via site", content: b64encode(JSON.stringify(data, null, 2)), sha: sha })
       });
-    }).then(function (r) { if (!r || !r.ok) throw new Error("HTTP " + (r && r.status)); return r.json(); })
-      .then(function (j) { remoteSha = j.sha; })
+    }).then(function (r) {
+      if (!r || !r.ok) {
+        return r.json().then(function (err) {
+          throw new Error("HTTP " + r.status + " " + (err && err.message ? err.message : ""));
+        }, function () { throw new Error("HTTP " + (r && r.status)); });
+      }
+      return r.json();
+    }).then(function (j) { remoteSha = j.sha; })
       .catch(function (e) { alert("同步到 GitHub 失败，已保存到本机。错误：" + e.message); });
   }
 
