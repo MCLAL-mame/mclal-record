@@ -262,6 +262,7 @@
     $("f-rating").value = it ? it.rating : "";
     $("f-date").value = it ? it.date : new Date().toISOString().slice(0, 10);
     $("f-cover").value = it ? it.cover : "";
+    updateCoverPreview();
     $("f-review").value = it ? it.review : "";
     $("f-year-new").value = "";
     $("entryModal").hidden = false;
@@ -392,6 +393,37 @@
     };
     reader.readAsText(file);
   }
+  function updateCoverPreview() {
+    var v = $("f-cover").value.trim(), prev = $("coverPreview");
+    if (v) { prev.src = v; prev.hidden = false; $("coverClearBtn").hidden = false; }
+    else { prev.hidden = true; prev.removeAttribute("src"); $("coverClearBtn").hidden = true; }
+  }
+  function handleCoverFile(file) {
+    if (!file) return;
+    if (!/^image\//.test(file.type)) { alert("请选择图片文件。"); return; }
+    var reader = new FileReader();
+    reader.onload = function () {
+      var img = new Image();
+      img.onload = function () {
+        var max = 1000, w = img.width, h = img.height;
+        if (w > max || h > max) {
+          if (w >= h) { h = Math.round(h * max / w); w = max; }
+          else { w = Math.round(w * max / h); h = max; }
+        }
+        var canvas = document.createElement("canvas");
+        canvas.width = w; canvas.height = h;
+        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+        var url;
+        try { url = canvas.toDataURL("image/jpeg", 0.82); } catch (e) { url = reader.result; }
+        if (url.length > 950 * 1024) url = canvas.toDataURL("image/jpeg", 0.6); // 仍过大再压
+        $("f-cover").value = url;
+        updateCoverPreview();
+      };
+      img.onerror = function () { alert("图片读取失败，换一张试试。"); };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
 
   // ====== 主题 ======
   var savedTheme = localStorage.getItem(THEME_KEY);
@@ -430,6 +462,12 @@
     if (this.files && this.files[0]) importData(this.files[0]);
     this.value = "";
   });
+  $("coverPickBtn").addEventListener("click", function () { $("coverFile").click(); });
+  $("coverFile").addEventListener("change", function () {
+    if (this.files && this.files[0]) handleCoverFile(this.files[0]);
+    this.value = "";
+  });
+  $("coverClearBtn").addEventListener("click", function () { $("f-cover").value = ""; updateCoverPreview(); });
   $("tokenBtn").addEventListener("click", function () {
     var t = prompt("粘贴你的 GitHub 个人访问令牌（PAT，需 repo 权限）。\n它只保存在你这台浏览器的本机，不会写进代码。", "");
     if (t) { localStorage.setItem("recsite-gh-token", t.trim()); alert("令牌已保存（仅本机浏览器）。之后在管理模式里的增删改会自动同步到分享链接。"); }
