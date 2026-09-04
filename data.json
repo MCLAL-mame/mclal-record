@@ -133,6 +133,18 @@
         "coverPos": "54% 0%"
       }
     ],
-    "books::2026": []
+    "books::2026": [
+      {
+        "id": "books-1788534937077",
+        "title": "枪炮、病菌与钢铁",
+        "rating": 0,
+        "status": "在看",
+        "category": "",
+        "date": "2026-09-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      }
+    ]
   }
 }
