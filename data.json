@@ -43,6 +43,17 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1788535125092",
+        "title": "冰汽时代2",
+        "rating": 0,
+        "status": "想玩",
+        "category": "PC",
+        "date": "2026-09-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "games-1788535106151",
         "title": "城市：天际线2",
         "rating": 0,
