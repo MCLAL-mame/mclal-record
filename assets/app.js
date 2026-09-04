@@ -378,6 +378,20 @@
     a.click();
     URL.revokeObjectURL(a.href);
   }
+  function importData(file) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      try {
+        var obj = JSON.parse(reader.result);
+        if (!obj || !obj.boards || !obj.records) throw new Error("文件格式不对（需含 boards 与 records）");
+        ensureIds(obj);
+        data = obj; save(); render();
+        if (state.admin) pushRemote();
+        alert("导入成功：已写入本机" + (state.admin ? "并同步到云端分享链接。" : "（非管理模式，未同步云端；进入管理模式可再同步）。"));
+      } catch (e) { alert("导入失败：" + e.message); }
+    };
+    reader.readAsText(file);
+  }
 
   // ====== 主题 ======
   var savedTheme = localStorage.getItem(THEME_KEY);
@@ -411,6 +425,11 @@
   $("addEntryBtn").addEventListener("click", function () { openEntryModal(null); });
   $("boardBtn").addEventListener("click", openBoardModal);
   $("exportBtn").addEventListener("click", exportData);
+  $("importBtn").addEventListener("click", function () { $("importFile").click(); });
+  $("importFile").addEventListener("change", function () {
+    if (this.files && this.files[0]) importData(this.files[0]);
+    this.value = "";
+  });
   $("tokenBtn").addEventListener("click", function () {
     var t = prompt("粘贴你的 GitHub 个人访问令牌（PAT，需 repo 权限）。\n它只保存在你这台浏览器的本机，不会写进代码。", "");
     if (t) { localStorage.setItem("recsite-gh-token", t.trim()); alert("令牌已保存（仅本机浏览器）。之后在管理模式里的增删改会自动同步到分享链接。"); }
