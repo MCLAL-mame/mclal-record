@@ -41,7 +41,19 @@
     }
   ],
   "records": {
-    "games::2026": [],
+    "games::2026": [
+      {
+        "id": "games-1788534005385",
+        "title": "巫师3：狂猎",
+        "rating": 9,
+        "status": "在玩",
+        "category": "PC",
+        "date": "2026-09-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      }
+    ],
     "film::2026": [
       {
         "id": "film-1788516639853",
