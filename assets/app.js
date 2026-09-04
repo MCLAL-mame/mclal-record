@@ -10,9 +10,9 @@
   // ====== 默认示例数据 ======
   var SEED = {
     boards: [
-      { key: "games", name: "游戏", emoji: "🎮", statuses: ["玩过", "在玩", "想玩"], years: ["2026", "2025"] },
-      { key: "film",  name: "影视", emoji: "🎬", statuses: ["待看", "看了", "在看"], years: ["2026", "2025"] },
-      { key: "books", name: "书籍", emoji: "📚", statuses: ["待看", "看了", "在看"], years: ["2026", "2025"] }
+      { key: "games", name: "游戏", emoji: "🎮", statuses: ["玩过", "在玩", "想玩"], years: ["2026", "2025"], categories: ["PS", "NS", "PC"] },
+      { key: "film",  name: "影视", emoji: "🎬", statuses: ["待看", "看了", "在看"], years: ["2026", "2025"], categories: ["番剧", "电视剧", "电影"] },
+      { key: "books", name: "书籍", emoji: "📚", statuses: ["待看", "看了", "在看"], years: ["2026", "2025"], categories: ["小说", "漫画", "其他"] }
     ],
     records: {
       "games::2026": [
@@ -151,9 +151,15 @@
     s = String(s || "");
     return s.length > n ? s.slice(0, n) + "…" : s;
   }
+  var CAT_COLORS = {
+    "PS": "#3f72b0", "NS": "#c0504d", "PC": "#4f8f63",
+    "番剧": "#d98324", "电视剧": "#8a5cc4", "电影": "#2a9d8f",
+    "小说": "#6b7c2a", "漫画": "#c46a2b", "其他": "#7a7a72"
+  };
   function catBadge(c) {
     if (!c) return "";
-    return '<span class="cat cat-' + escapeHtml(String(c).toLowerCase()) + '">' + escapeHtml(c) + "</span>";
+    var col = CAT_COLORS[c] || "#7a7a72";
+    return '<span class="cat" style="background:' + col + '1f;color:' + col + ';border:1px solid ' + col + '55">' + escapeHtml(c) + "</span>";
   }
   function sortList(list) {
     var s = state.sort;
@@ -254,6 +260,11 @@
     }).join("");
     $("f-status").innerHTML = (b.statuses || []).map(function (s) {
       return '<option value="' + escapeHtml(s) + '">' + escapeHtml(s) + "</option>";
+    }).join("");
+    var catLabelEl = document.getElementById("catLabel");
+    if (catLabelEl) catLabelEl.textContent = b.key === "games" ? "平台" : b.key === "film" ? "类型" : "分类";
+    $("f-category").innerHTML = '<option value="">无</option>' + (b.categories || []).map(function (c) {
+      return '<option value="' + escapeHtml(c) + '">' + escapeHtml(c) + "</option>";
     }).join("");
     var it = entryId ? findRecord(entryId).rec : null;
     $("f-title").value = it ? it.title : "";
