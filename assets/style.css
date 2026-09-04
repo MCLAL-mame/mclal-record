@@ -129,7 +129,8 @@ body {
   justify-content: center; font-size: 38px; color: var(--accent);
 }
 .cover-upload { display: flex; gap: 8px; margin-top: 8px; }
-.cover-preview { width: 100%; max-height: 160px; object-fit: cover; border-radius: 10px; margin-top: 8px; border: 1px solid var(--border); }
+.cover-preview { width: 100%; max-height: 160px; object-fit: cover; border-radius: 10px; margin-top: 8px; border: 1px solid var(--border); cursor: crosshair; }
+.cover-hint { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
 .card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; }
 .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .card-title { font-size: 16px; font-weight: 600; margin: 0; line-height: 1.4; }
