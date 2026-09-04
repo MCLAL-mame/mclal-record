@@ -408,6 +408,17 @@
     ],
     "film::2026": [
       {
+        "id": "film-1788537881847",
+        "title": "白箱",
+        "rating": 0,
+        "status": "待看",
+        "category": "",
+        "date": "2026-09-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "film-1788537872310",
         "title": "NEW GAME!",
         "rating": 0,
