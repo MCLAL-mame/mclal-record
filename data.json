@@ -43,6 +43,17 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1788535377579",
+        "title": "暗喻幻想",
+        "rating": 8,
+        "status": "在玩",
+        "category": "PS",
+        "date": "2026-09-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "games-1788535362583",
         "title": "双影奇境",
         "rating": 8.5,
