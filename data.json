@@ -1,20 +1,101 @@
 {
   "boards": [
-    { "key": "games", "name": "游戏", "emoji": "🎮", "statuses": ["玩过", "在玩", "想玩"], "years": ["2026", "2025"] },
-    { "key": "film",  "name": "影视", "emoji": "🎬", "statuses": ["待看", "看了", "在看"], "years": ["2026", "2025"] },
-    { "key": "books", "name": "书籍", "emoji": "📚", "statuses": ["待看", "看了", "在看"], "years": ["2026", "2025"] }
+    {
+      "key": "games",
+      "name": "游戏",
+      "emoji": "🎮",
+      "statuses": [
+        "玩过",
+        "在玩",
+        "想玩"
+      ],
+      "years": [
+        "2026",
+        "2025"
+      ]
+    },
+    {
+      "key": "film",
+      "name": "影视",
+      "emoji": "🎬",
+      "statuses": [
+        "待看",
+        "看了",
+        "在看"
+      ],
+      "years": [
+        "2026",
+        "2025"
+      ]
+    },
+    {
+      "key": "books",
+      "name": "书籍",
+      "emoji": "📚",
+      "statuses": [
+        "待看",
+        "看了",
+        "在看"
+      ],
+      "years": [
+        "2026",
+        "2025"
+      ]
+    }
   ],
   "records": {
     "games::2026": [
-      { "id": "g1", "title": "塞尔达传说：王国之泪", "rating": 9.5, "status": "玩过", "date": "2026-08-20", "category": "NS", "review": "开放世界天花板，究极手+余料建造把物理引擎玩出花。肝了200小时依然意犹未尽，海拉鲁的每个角落都有惊喜。", "cover": "" },
-      { "id": "g2", "title": "艾尔登法环", "rating": 8.5, "status": "在玩", "date": "2026-09-01", "category": "PC", "review": "受苦但上头，地图设计教科书级别。", "cover": "" }
+      {
+        "id": "g1",
+        "title": "塞尔达传说：王国之泪",
+        "rating": 9.5,
+        "status": "玩过",
+        "date": "2026-08-20",
+        "category": "NS",
+        "review": "开放世界天花板，究极手+余料建造把物理引擎玩出花。肝了200小时依然意犹未尽，海拉鲁的每个角落都有惊喜。",
+        "cover": ""
+      },
+      {
+        "id": "g2",
+        "title": "艾尔登法环",
+        "rating": 8.5,
+        "status": "在玩",
+        "date": "2026-09-01",
+        "category": "PC",
+        "review": "受苦但上头，地图设计教科书级别。",
+        "cover": ""
+      }
     ],
     "film::2026": [
-      { "id": "f1", "title": "奥本海默", "rating": 9, "status": "看了", "date": "2026-08-30", "review": "视听震撼，IMAX 必看。诺兰把复杂历史拍出了压迫感与史诗感。", "cover": "" }
+      {
+        "id": "f1",
+        "title": "奥本海默",
+        "rating": 9,
+        "status": "看了",
+        "date": "2026-08-30",
+        "review": "视听震撼，IMAX 必看。诺兰把复杂历史拍出了压迫感与史诗感。",
+        "cover": ""
+      }
     ],
     "books::2026": [
-      { "id": "b1", "title": "人类简史", "rating": 8.5, "status": "看了", "date": "2026-07-15", "review": "认知革命讲得真清楚，一口气读完。", "cover": "" },
-      { "id": "b2", "title": "万历十五年", "rating": 0, "status": "在看", "date": "2026-09-02", "review": "", "cover": "" }
+      {
+        "id": "b1",
+        "title": "人类简史",
+        "rating": 8.5,
+        "status": "看了",
+        "date": "2026-07-15",
+        "review": "认知革命讲得真清楚，一口气读完。",
+        "cover": ""
+      },
+      {
+        "id": "b2",
+        "title": "万历十五年",
+        "rating": 0,
+        "status": "在看",
+        "date": "2026-09-02",
+        "review": "",
+        "cover": ""
+      }
     ]
   }
 }
