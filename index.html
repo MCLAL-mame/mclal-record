@@ -93,7 +93,15 @@
       </label>
       <label data-page-node-id="DMYqHoWps9BKZ1B5dLuge7">评分（1–10，可含 .5）<input id="f-rating" type="number" min="1" max="10" step="0.5" data-page-node-id="d4ytF8FGvcbwVfI8oHZPUE"></label>
       <label data-page-node-id="Nj2PHoR8qgImMnMG1U7LVN">日期<input id="f-date" type="date" data-page-node-id="CgCF0bdIIHhRlJDNHQHrBV"></label>
-      <label data-page-node-id="QHD4OZqtgJBjbDCGGUlDMD">封面图链接<input id="f-cover" type="text" placeholder="留空则用占位图标" data-page-node-id="kU4CHp43mwBmsJVjYoZA9o"></label>
+      <label data-page-node-id="QHD4OZqtgJBjbDCGGUlDMD">封面图
+        <input id="f-cover" type="text" placeholder="粘贴图片链接，或点下方按钮上传本地图片" data-page-node-id="kU4CHp43mwBmsJVjYoZA9o">
+        <div class="cover-upload">
+          <button type="button" id="coverPickBtn" class="btn ghost" data-page-node-id="coverPickBtnMCLAL">📷 上传本地图片</button>
+          <button type="button" id="coverClearBtn" class="btn ghost" data-page-node-id="coverClearBtnMCLAL" hidden>清除</button>
+          <input id="coverFile" type="file" accept="image/*" hidden data-page-node-id="coverFileMCLAL">
+        </div>
+        <img id="coverPreview" class="cover-preview" alt="" hidden data-page-node-id="coverPreviewMCLAL">
+      </label>
       <label data-page-node-id="E11DYCiFEFk0yIwHmgxuj2">评价<textarea id="f-review" rows="4" placeholder="写点什么…"></textarea></label>
       <div class="modal-actions" data-page-node-id="yTpAh8affsO2A8PLZuAJZb">
         <button id="entryCancel" class="btn ghost" data-page-node-id="l2Kf9bVKaryv7JgR1ZEIbg">取消</button>
