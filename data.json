@@ -43,6 +43,17 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1788535559152",
+        "title": "sifu",
+        "rating": 0,
+        "status": "想玩",
+        "category": "",
+        "date": "2026-09-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "games-1788535546431",
         "title": "奇异人生：双重曝光",
         "rating": 0,
