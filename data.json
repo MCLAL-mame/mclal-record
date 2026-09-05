@@ -423,6 +423,17 @@
     ],
     "film::2026": [
       {
+        "id": "film-1788580893678",
+        "title": "蓦然回首",
+        "rating": 0,
+        "status": "待看",
+        "category": "电影",
+        "date": "2026-09-05",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "film-1788580838608",
         "title": "孤独摇滚",
         "rating": 0,
