@@ -423,6 +423,17 @@
     ],
     "film::2026": [
       {
+        "id": "film-1788579500996",
+        "title": "旺达幻视",
+        "rating": 0,
+        "status": "待看",
+        "category": "电视剧",
+        "date": "2026-09-05",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "film-1788579464391",
         "title": "纸牌屋",
         "rating": 0,
