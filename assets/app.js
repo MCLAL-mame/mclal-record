@@ -57,6 +57,7 @@
       try {
         var obj = JSON.parse(b64decode(j.content));
         ensureIds(obj);
+        migrate(obj);
         data = obj; remoteSha = j.sha; save(); render();
       } catch (e) {}
     }).catch(function () {});
@@ -90,20 +91,24 @@
 
   // ====== 状态 ======
   var data = load();
-  var state = { board: data.boards[0].key, year: "全部", query: "", status: "", sort: "date_desc", admin: false };
+  var state = { board: data.boards[0].key, year: "全部", query: "", status: "", category: "", sort: "date_desc", admin: false };
   var editing = { entryId: null };
   var detailId = null;
   var currentCoverPos = "50% 50%";
 
   var $ = function (id) { return document.getElementById(id); };
   var grid = $("grid"), empty = $("empty"), tabs = $("tabs"), yearTabs = $("yearTabs");
-  var search = $("search"), filter = $("filter"), adminBar = $("adminBar");
+  var search = $("search"), filter = $("filter"), catFilter = $("catFilter"), adminBar = $("adminBar");
 
   // ====== 工具 ======
   function load() {
     try {
       var raw = localStorage.getItem(STORE_KEY);
-      if (raw) return JSON.parse(raw);
+      if (raw) {
+        var obj = JSON.parse(raw);
+        migrate(obj);
+        return obj;
+      }
     } catch (e) {}
     ensureIds(SEED);
     return JSON.parse(JSON.stringify(SEED));
@@ -112,6 +117,17 @@
   function ensureIds(obj) {
     Object.keys(obj.records).forEach(function (k) {
       obj.records[k].forEach(function (it, i) { if (!it.id) it.id = k + "-" + i + "-" + Date.now(); });
+    });
+  }
+  function migrate(obj) {
+    // 老数据缺少 categories 等字段时，用 SEED 内置板块的默认值补齐
+    if (!obj || !obj.boards) return;
+    obj.boards.forEach(function (b) {
+      var seed = SEED.boards.filter(function (sb) { return sb.key === b.key; })[0];
+      if (!seed) return;
+      ["categories", "statuses", "years", "emoji"].forEach(function (k) {
+        if (seed[k] && (!b[k] || b[k].length === 0)) b[k] = seed[k].slice();
+      });
     });
   }
   function boardOf(key) { return data.boards.filter(function (b) { return b.key === key; })[0]; }
@@ -197,6 +213,14 @@
       }).join("");
     state.status = "";
   }
+  function refreshCatFilter() {
+    var b = boardOf(state.board);
+    catFilter.innerHTML = '<option value="">全部分类</option>' +
+      (b.categories || []).map(function (c) {
+        return '<option value="' + escapeHtml(c) + '">' + escapeHtml(c) + "</option>";
+      }).join("");
+    state.category = "";
+  }
   function renderGrid() {
     var b = boardOf(state.board);
     var list = recList(state.board, state.year).slice();
@@ -205,6 +229,7 @@
       return (it.title + " " + (it.review || "")).toLowerCase().indexOf(q) !== -1;
     });
     if (state.status) list = list.filter(function (it) { return it.status === state.status; });
+    if (state.category) list = list.filter(function (it) { return it.category === state.category; });
     sortList(list);
 
     grid.innerHTML = list.map(function (it) {
@@ -229,7 +254,7 @@
     }).join("");
     empty.hidden = list.length !== 0;
   }
-  function render() { renderTabs(); renderYearTabs(); refreshFilter(); renderGrid(); }
+  function render() { renderTabs(); renderYearTabs(); refreshFilter(); refreshCatFilter(); renderGrid(); }
 
   // ====== 详情弹窗 ======
   function openDetail(id) {
@@ -400,6 +425,7 @@
         var obj = JSON.parse(reader.result);
         if (!obj || !obj.boards || !obj.records) throw new Error("文件格式不对（需含 boards 与 records）");
         ensureIds(obj);
+        migrate(obj);
         data = obj; save(); render();
         if (state.admin) pushRemote();
         alert("导入成功：已写入本机" + (state.admin ? "并同步到云端分享链接。" : "（非管理模式，未同步云端；进入管理模式可再同步）。"));
@@ -492,6 +518,7 @@
   });
   search.addEventListener("input", function () { state.query = this.value; renderGrid(); });
   filter.addEventListener("change", function () { state.status = this.value; renderGrid(); });
+  catFilter.addEventListener("change", function () { state.category = this.value; renderGrid(); });
   $("sort").addEventListener("change", function () { state.sort = this.value; renderGrid(); });
 
   $("adminBtn").addEventListener("click", enterAdmin);
