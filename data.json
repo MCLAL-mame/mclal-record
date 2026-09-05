@@ -58,6 +58,17 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1788582801718",
+        "title": "最终幻想15",
+        "rating": 0,
+        "status": "在玩",
+        "category": "PC",
+        "date": "2026-09-05",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "games-1788582601357",
         "title": "欧陆风云5",
         "rating": 0,
