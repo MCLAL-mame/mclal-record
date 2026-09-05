@@ -58,6 +58,17 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1788582601357",
+        "title": "欧陆风云5",
+        "rating": 0,
+        "status": "想玩",
+        "category": "PC",
+        "date": "2026-09-05",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "games-1788535635771",
         "title": "真女神转生5",
         "rating": 0,
