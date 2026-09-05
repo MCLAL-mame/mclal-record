@@ -423,6 +423,17 @@
     ],
     "film::2026": [
       {
+        "id": "film-1788579160143",
+        "title": "嫌疑人X的献身",
+        "rating": 0,
+        "status": "待看",
+        "category": "电影",
+        "date": "2026-09-05",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "film-1788579064852",
         "title": "JOJO彪马野郎",
         "rating": 0,
