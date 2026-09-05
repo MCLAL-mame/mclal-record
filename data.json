@@ -423,6 +423,17 @@
     ],
     "film::2026": [
       {
+        "id": "film-1788579290490",
+        "title": "血战钢锯岭",
+        "rating": 0,
+        "status": "待看",
+        "category": "电影",
+        "date": "2026-09-05",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "film-1788579247221",
         "title": "惊天营救",
         "rating": 0,
