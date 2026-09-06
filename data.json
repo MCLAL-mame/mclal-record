@@ -445,6 +445,17 @@
     ],
     "film::2026": [
       {
+        "id": "film-1788663261838",
+        "title": "我推的孩子",
+        "rating": 0,
+        "status": "待看",
+        "category": "番剧",
+        "date": "2026-09-06",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "film-1788582639141",
         "title": "命运石之门",
         "rating": 0,
