@@ -445,6 +445,17 @@
     ],
     "film::2026": [
       {
+        "id": "film-1789643979779",
+        "title": "行尸走肉",
+        "rating": 0,
+        "status": "待看",
+        "category": "电视剧",
+        "date": "2026-09-17",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%"
+      },
+      {
         "id": "film-1789285722172",
         "title": "苦尽柑来",
         "rating": 9,
