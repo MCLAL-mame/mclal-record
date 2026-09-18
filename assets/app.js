@@ -452,8 +452,14 @@
     var pos = currentCoverPos || "50% 50%", z = currentCoverZoom;
     var result = $("coverResult");
     result.style.objectPosition = pos;
-    result.style.transform = "scale(" + z + ")";
-    result.style.transformOrigin = pos;
+    if (z >= 1) {
+      result.style.transform = "scale(" + z + ")";
+      result.style.transformOrigin = pos;
+    } else {
+      // <1×：完整显示整图，不加 transform
+      result.style.transform = "none";
+      result.style.transformOrigin = "50% 50%";
+    }
     $("coverZoom").value = z;
     $("coverZoomV").textContent = (Math.round(z * 100) / 100).toFixed(2) + "×";
     drawCoverCrop();
@@ -461,18 +467,31 @@
   function drawCoverCrop() {
     if (!coverNW) return;
     var source = $("coverSource"), Ws = source.clientWidth, Hs = source.clientHeight;
+    if (!Ws || !Hs) { requestAnimationFrame(drawCoverCrop); return; }
     var arImg = coverNW / coverNH, arBox = Ws / Hs;
     var dispW, dispH, offX, offY;
     if (arBox > arImg) { dispH = Hs; dispW = Hs * arImg; offX = (Ws - dispW) / 2; offY = 0; }
     else { dispW = Ws; dispH = Ws / arImg; offX = 0; offY = (Hs - dispH) / 2; }
     var rW = $("coverResult").clientWidth, rH = $("coverResult").clientHeight;
     var z = currentCoverZoom;
-    var s = Math.max(rW / coverNW, rH / coverNH) * z;
-    var visW = rW / s, visH = rH / s;
+    var visW, visH;
+    if (z >= 1) {
+      // ≥1×：cover + scale(z)，可见区域为图中一部分
+      var s = Math.max(rW / coverNW, rH / coverNH) * z;
+      visW = rW / s; visH = rH / s;
+    } else {
+      // <1×：完整显示整图（contain），可见区域即整张图
+      visW = coverNW; visH = coverNH;
+    }
     var fx = parseFloat(currentCoverPos.split("%")[0]) / 100, fy = parseFloat(currentCoverPos.split("%")[1]) / 100;
     var crop = $("coverCrop"), handle = $("coverHandle");
-    crop.style.left = (offX + (fx * coverNW - visW / 2) / coverNW * dispW) + "px";
-    crop.style.top = (offY + (fy * coverNH - visH / 2) / coverNH * dispH) + "px";
+    // 可见区域左上角在图中的位置比例（限制在图内）
+    var leftFrac = (fx * coverNW - visW / 2) / coverNW;
+    var topFrac = (fy * coverNH - visH / 2) / coverNH;
+    leftFrac = Math.max(0, Math.min(1 - visW / coverNW, leftFrac));
+    topFrac = Math.max(0, Math.min(1 - visH / coverNH, topFrac));
+    crop.style.left = (offX + leftFrac * dispW) + "px";
+    crop.style.top = (offY + topFrac * dispH) + "px";
     crop.style.width = (visW / coverNW * dispW) + "px";
     crop.style.height = (visH / coverNH * dispH) + "px";
     handle.style.left = (offX + fx * dispW) + "px";
@@ -483,17 +502,31 @@
     var source = $("coverSource"), rect = source.getBoundingClientRect();
     var x = cx - rect.left, y = cy - rect.top;
     var Ws = source.clientWidth, Hs = source.clientHeight;
+    if (!Ws || !Hs) return;
     var arImg = coverNW / coverNH, arBox = Ws / Hs;
     var dispW, dispH, offX, offY;
     if (arBox > arImg) { dispH = Hs; dispW = Hs * arImg; offX = (Ws - dispW) / 2; offY = 0; }
     else { dispW = Ws; dispH = Ws / arImg; offX = 0; offY = (Hs - dispH) / 2; }
     var fx = Math.max(0, Math.min(1, (x - offX) / dispW));
     var fy = Math.max(0, Math.min(1, (y - offY) / dispH));
+    var z = currentCoverZoom;
+    if (z >= 1) {
+      // 缩放 ≥1× 时，限制焦点使裁切区域不超出原图
+      var rW = $("coverResult").clientWidth, rH = $("coverResult").clientHeight;
+      var s = Math.max(rW / coverNW, rH / coverNH) * z;
+      var visW = rW / s, visH = rH / s;
+      fx = Math.max(visW / 2 / coverNW, Math.min(1 - visW / 2 / coverNW, fx));
+      fy = Math.max(visH / 2 / coverNH, Math.min(1 - visH / 2 / coverNH, fy));
+    }
     currentCoverPos = Math.round(fx * 100) + "% " + Math.round(fy * 100) + "%";
     applyCoverTransform();
   }
   function coverStyle(pos, zoom) {
     var p = pos || "50% 50%", z = zoom || 1;
+    if (z < 1) {
+      // <1×：完整显示整张图（letterbox，可能留白边）
+      return "width:100%;height:100%;object-fit:contain;object-position:" + p;
+    }
     return "width:100%;height:100%;object-fit:cover;object-position:" + p + ";transform:scale(" + z + ");transform-origin:" + p;
   }
   function uploadCoverToRepo(dataUrl, name) {
@@ -620,8 +653,14 @@
       var s = Math.max(rect.width / coverNW, rect.height / coverNH) * z;
       var visW = rect.width / s, visH = rect.height / s;
       var fx = parseFloat(currentCoverPos.split("%")[0]) / 100, fy = parseFloat(currentCoverPos.split("%")[1]) / 100;
-      fx = Math.max(0, Math.min(1, fx - dx / (visW / coverNW)));
-      fy = Math.max(0, Math.min(1, fy - dy / (visH / coverNH)));
+      if (z >= 1) {
+        // 缩放 ≥1× 时，限制可见区域不超出原图
+        fx = Math.max(visW / 2 / coverNW, Math.min(1 - visW / 2 / coverNW, fx - dx / (visW / coverNW)));
+        fy = Math.max(visH / 2 / coverNH, Math.min(1 - visH / 2 / coverNH, fy - dy / (visH / coverNH)));
+      } else {
+        fx = Math.max(0, Math.min(1, fx - dx / (visW / coverNW)));
+        fy = Math.max(0, Math.min(1, fy - dy / (visH / coverNH)));
+      }
       currentCoverPos = Math.round(fx * 100) + "% " + Math.round(fy * 100) + "%";
       applyCoverTransform();
     });
