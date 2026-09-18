@@ -208,6 +208,7 @@ body {
 .detail-cover {
   height: 150px; background: var(--accent-soft); display: flex; align-items: center;
   justify-content: center; font-size: 50px; color: var(--accent); border-radius: 12px; margin-bottom: 14px;
+  overflow: hidden;
 }
 .detail-title { font-size: 20px; font-weight: 700; margin: 0 0 8px; }
 .detail-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
@@ -226,3 +227,47 @@ body {
   font-size: 12px; background: var(--accent-soft); color: var(--accent);
   padding: 1px 9px; border-radius: 999px;
 }
+
+/* ===== 下半部分背景：D 黄昏暖调（仅浅色模式）===== */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background: url("hero.jpg") center / cover no-repeat;
+  filter: blur(4px) saturate(1.2) brightness(1.05);
+  transform: scale(1.08);
+}
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(160deg, rgba(255,184,128,1), rgba(240,148,168,1) 52%, rgba(148,158,214,1));
+  mix-blend-mode: soft-light; opacity: .20;
+}
+html[data-theme="dark"] body::before,
+html[data-theme="dark"] body::after { display: none; }
+
+/* ===== 封面选择编辑器 ===== */
+.cover-editor { margin-top: 10px; }
+.cover-cols { display: flex; gap: 14px; flex-wrap: wrap; }
+.cover-col { flex: 1; min-width: 230px; }
+.cover-cap { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+.cover-result {
+  width: 100%; max-width: 300px; height: 170px; border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--border); background: var(--accent-soft); position: relative; cursor: grab;
+}
+.cover-result:active { cursor: grabbing; }
+.cover-result img { width: 100%; height: 100%; object-fit: cover; display: block; transform-origin: 50% 50%; }
+.cover-source {
+  width: 300px; max-width: 100%; height: 200px; border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--border); background: #eee; background-size: contain; background-repeat: no-repeat;
+  background-position: center; position: relative; cursor: crosshair; touch-action: none;
+}
+.cover-crop {
+  position: absolute; border: 2px dashed rgba(225,90,80,1); box-shadow: 0 0 0 9999px rgba(255,255,255,.5);
+  pointer-events: none; border-radius: 3px;
+}
+.cover-handle {
+  position: absolute; width: 20px; height: 20px; border-radius: 50%; background: rgba(225,90,80,1);
+  border: 2px solid #fff; transform: translate(-50%, -50%); cursor: grab; box-shadow: 0 1px 5px rgba(0,0,0,.35);
+  pointer-events: none;
+}
+.cover-slider { margin-top: 12px; }
+.cover-slider label { font-size: 13px; color: #6b665c; display: flex; align-items: center; gap: 10px; }
+.cover-slider input[type=range] { flex: 1; max-width: 260px; accent-color: var(--accent); }
