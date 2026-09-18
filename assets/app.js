@@ -95,6 +95,8 @@
   var editing = { entryId: null };
   var detailId = null;
   var currentCoverPos = "50% 50%";
+  var currentCoverZoom = 1;
+  var coverNW = 0, coverNH = 0;
 
   var $ = function (id) { return document.getElementById(id); };
   var grid = $("grid"), empty = $("empty"), tabs = $("tabs"), yearTabs = $("yearTabs");
@@ -234,7 +236,7 @@
 
     grid.innerHTML = list.map(function (it) {
       var cover = it.cover
-        ? '<div class="cover"><img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:cover;object-position:' + escapeHtml(it.coverPos || "50% 50%") + '"></div>'
+        ? '<div class="cover"><img src="' + escapeHtml(it.cover) + '" alt="" style="' + coverStyle(it.coverPos, it.coverZoom) + '"></div>'
         : '<div class="cover">' + escapeHtml(b.emoji) + "</div>";
       var score = it.rating > 0
         ? '<span class="stars">' + stars10(it.rating) + '</span><span class="score">' + Number(it.rating) + "/10</span>" : "";
@@ -262,7 +264,7 @@
     var b = boardOf(f.boardKey), it = f.rec;
     detailId = id;
     $("detailCover").innerHTML = it.cover
-      ? '<img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:cover;object-position:' + escapeHtml(it.coverPos || "50% 50%") + ';border-radius:12px">'
+      ? '<img src="' + escapeHtml(it.cover) + '" alt="" style="' + coverStyle(it.coverPos, it.coverZoom) + ';border-radius:12px">'
       : escapeHtml(b.emoji);
     $("detailTitle").textContent = it.title || "（无标题）";
     var score = it.rating > 0
@@ -300,6 +302,7 @@
     $("f-date").value = it ? it.date : new Date().toISOString().slice(0, 10);
     $("f-cover").value = it ? it.cover : "";
     currentCoverPos = (it && it.coverPos) ? it.coverPos : "50% 50%";
+    currentCoverZoom = (it && it.coverZoom) ? it.coverZoom : 1;
     updateCoverPreview();
     $("f-review").value = it ? it.review : "";
     $("f-year-new").value = "";
@@ -323,7 +326,8 @@
       date: $("f-date").value,
       review: $("f-review").value.trim(),
       cover: $("f-cover").value.trim(),
-      coverPos: currentCoverPos
+      coverPos: currentCoverPos,
+      coverZoom: currentCoverZoom
     };
     var key = rkey(state.board, year);
     if (!data.records[key]) data.records[key] = [];
@@ -434,9 +438,63 @@
     reader.readAsText(file);
   }
   function updateCoverPreview() {
-    var v = $("f-cover").value.trim(), prev = $("coverPreview");
-    if (v) { prev.src = v; prev.hidden = false; prev.style.objectPosition = currentCoverPos; $("coverClearBtn").hidden = false; $("coverHint").hidden = false; }
-    else { prev.hidden = true; prev.removeAttribute("src"); $("coverClearBtn").hidden = true; $("coverHint").hidden = true; }
+    var v = $("f-cover").value.trim(), editor = $("coverEditor");
+    if (!v) { editor.hidden = true; $("coverClearBtn").hidden = true; return; }
+    editor.hidden = false;
+    $("coverClearBtn").hidden = false;
+    $("coverResult").src = v;
+    var probe = new Image();
+    probe.onload = function () { coverNW = this.naturalWidth; coverNH = this.naturalHeight; applyCoverTransform(); };
+    probe.src = v;
+    $("coverSource").style.backgroundImage = 'url("' + v + '")';
+  }
+  function applyCoverTransform() {
+    var pos = currentCoverPos || "50% 50%", z = currentCoverZoom;
+    var result = $("coverResult");
+    result.style.objectPosition = pos;
+    result.style.transform = "scale(" + z + ")";
+    result.style.transformOrigin = pos;
+    $("coverZoom").value = z;
+    $("coverZoomV").textContent = (Math.round(z * 100) / 100).toFixed(2) + "×";
+    drawCoverCrop();
+  }
+  function drawCoverCrop() {
+    if (!coverNW) return;
+    var source = $("coverSource"), Ws = source.clientWidth, Hs = source.clientHeight;
+    var arImg = coverNW / coverNH, arBox = Ws / Hs;
+    var dispW, dispH, offX, offY;
+    if (arBox > arImg) { dispH = Hs; dispW = Hs * arImg; offX = (Ws - dispW) / 2; offY = 0; }
+    else { dispW = Ws; dispH = Ws / arImg; offX = 0; offY = (Hs - dispH) / 2; }
+    var rW = $("coverResult").clientWidth, rH = $("coverResult").clientHeight;
+    var z = currentCoverZoom;
+    var s = Math.max(rW / coverNW, rH / coverNH) * z;
+    var visW = rW / s, visH = rH / s;
+    var fx = parseFloat(currentCoverPos.split("%")[0]) / 100, fy = parseFloat(currentCoverPos.split("%")[1]) / 100;
+    var crop = $("coverCrop"), handle = $("coverHandle");
+    crop.style.left = (offX + (fx * coverNW - visW / 2) / coverNW * dispW) + "px";
+    crop.style.top = (offY + (fy * coverNH - visH / 2) / coverNH * dispH) + "px";
+    crop.style.width = (visW / coverNW * dispW) + "px";
+    crop.style.height = (visH / coverNH * dispH) + "px";
+    handle.style.left = (offX + fx * dispW) + "px";
+    handle.style.top = (offY + fy * dispH) + "px";
+  }
+  function coverSetFocalClient(cx, cy) {
+    if (!coverNW) return;
+    var source = $("coverSource"), rect = source.getBoundingClientRect();
+    var x = cx - rect.left, y = cy - rect.top;
+    var Ws = source.clientWidth, Hs = source.clientHeight;
+    var arImg = coverNW / coverNH, arBox = Ws / Hs;
+    var dispW, dispH, offX, offY;
+    if (arBox > arImg) { dispH = Hs; dispW = Hs * arImg; offX = (Ws - dispW) / 2; offY = 0; }
+    else { dispW = Ws; dispH = Ws / arImg; offX = 0; offY = (Hs - dispH) / 2; }
+    var fx = Math.max(0, Math.min(1, (x - offX) / dispW));
+    var fy = Math.max(0, Math.min(1, (y - offY) / dispH));
+    currentCoverPos = Math.round(fx * 100) + "% " + Math.round(fy * 100) + "%";
+    applyCoverTransform();
+  }
+  function coverStyle(pos, zoom) {
+    var p = pos || "50% 50%", z = zoom || 1;
+    return "width:100%;height:100%;object-fit:cover;object-position:" + p + ";transform:scale(" + z + ");transform-origin:" + p;
   }
   function uploadCoverToRepo(dataUrl, name) {
     return new Promise(function (resolve, reject) {
@@ -537,15 +595,41 @@
     this.value = "";
   });
   $("coverClearBtn").addEventListener("click", function () { $("f-cover").value = ""; updateCoverPreview(); });
-  $("coverPreview").addEventListener("click", function (e) {
-    var rect = this.getBoundingClientRect();
-    if (!rect.width || !rect.height) return;
-    var x = Math.round((e.clientX - rect.left) / rect.width * 100);
-    var y = Math.round((e.clientY - rect.top) / rect.height * 100);
-    x = Math.max(0, Math.min(100, x)); y = Math.max(0, Math.min(100, y));
-    currentCoverPos = x + "% " + y + "%";
-    this.style.objectPosition = currentCoverPos;
+  $("f-cover").addEventListener("input", function () {
+    var v = this.value.trim();
+    if (!v || v.indexOf("http") === 0 || v.indexOf("data:") === 0) updateCoverPreview();
   });
+
+  // 封面选择：拖动红点选区域 + 缩放 + 结果实时预览
+  (function setupCoverPicker() {
+    var source = $("coverSource"), result = $("coverResult");
+    var sDrag = false;
+    source.addEventListener("mousedown", function (e) { sDrag = true; coverSetFocalClient(e.clientX, e.clientY); });
+    source.addEventListener("touchstart", function (e) { sDrag = true; coverSetFocalClient(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); }, { passive: false });
+    source.addEventListener("touchmove", function (e) { if (sDrag) { coverSetFocalClient(e.touches[0].clientX, e.touches[0].clientY); e.preventDefault(); } }, { passive: false });
+    source.addEventListener("touchend", function () { sDrag = false; });
+    window.addEventListener("mousemove", function (e) { if (sDrag) coverSetFocalClient(e.clientX, e.clientY); });
+    window.addEventListener("mouseup", function () { sDrag = false; });
+
+    var rDrag = false, rLast = null;
+    result.addEventListener("mousedown", function (e) { e.preventDefault(); rDrag = true; rLast = { x: e.clientX, y: e.clientY }; });
+    window.addEventListener("mousemove", function (e) {
+      if (!rDrag) return;
+      var dx = e.clientX - rLast.x, dy = e.clientY - rLast.y; rLast = { x: e.clientX, y: e.clientY };
+      var rect = result.getBoundingClientRect(), z = currentCoverZoom;
+      var s = Math.max(rect.width / coverNW, rect.height / coverNH) * z;
+      var visW = rect.width / s, visH = rect.height / s;
+      var fx = parseFloat(currentCoverPos.split("%")[0]) / 100, fy = parseFloat(currentCoverPos.split("%")[1]) / 100;
+      fx = Math.max(0, Math.min(1, fx - dx / (visW / coverNW)));
+      fy = Math.max(0, Math.min(1, fy - dy / (visH / coverNH)));
+      currentCoverPos = Math.round(fx * 100) + "% " + Math.round(fy * 100) + "%";
+      applyCoverTransform();
+    });
+    window.addEventListener("mouseup", function () { rDrag = false; });
+
+    $("coverZoom").addEventListener("input", function () { currentCoverZoom = +this.value; applyCoverTransform(); });
+    window.addEventListener("resize", drawCoverCrop);
+  })();
   $("tokenBtn").addEventListener("click", function () {
     var t = prompt("粘贴你的 GitHub 个人访问令牌（PAT，需 repo 权限）。\n它只保存在你这台浏览器的本机，不会写进代码。", "");
     if (t) { localStorage.setItem("recsite-gh-token", t.trim()); alert("令牌已保存（仅本机浏览器）。之后在管理模式里的增删改会自动同步到分享链接。"); }
