@@ -98,8 +98,22 @@
           <button type="button" id="coverClearBtn" class="btn ghost" data-page-node-id="coverClearBtnMCLAL" hidden>清除</button>
           <input id="coverFile" type="file" accept="image/*" hidden data-page-node-id="coverFileMCLAL">
         </div>
-        <img id="coverPreview" class="cover-preview" alt="" hidden data-page-node-id="coverPreviewMCLAL">
-        <p class="cover-hint" id="coverHint" hidden>点击上方预览图，选择封面上想显示的位置</p>
+        <div class="cover-editor" id="coverEditor" hidden data-page-node-id="coverEditorMCLAL">
+          <div class="cover-cols">
+            <div class="cover-col">
+              <span class="cover-cap">卡片显示效果</span>
+              <div class="cover-result" id="coverResultBox" data-page-node-id="coverResultBoxMCLAL"><img id="coverResult" alt="" data-page-node-id="coverResultMCLAL"></div>
+            </div>
+            <div class="cover-col">
+              <span class="cover-cap">原图（拖红点选区域）</span>
+              <div class="cover-source" id="coverSource" data-page-node-id="coverSourceMCLAL"></div>
+            </div>
+          </div>
+          <div class="cover-slider">
+            <label>缩放 <input type="range" id="coverZoom" min="1" max="3" step="0.01" value="1" data-page-node-id="coverZoomMCLAL"><span id="coverZoomV" data-page-node-id="coverZoomVMCLAL">1.00×</span></label>
+          </div>
+          <p class="cover-hint">左侧为卡片上的最终效果；右侧原图拖动红点选区域，或在左侧直接拖动平移焦点。也可把图片链接粘贴到上方输入框实时预览。</p>
+        </div>
       </label>
       <label data-page-node-id="E11DYCiFEFk0yIwHmgxuj2">评价<textarea id="f-review" rows="4" placeholder="写点什么…"></textarea></label>
       <div class="modal-actions" data-page-node-id="yTpAh8affsO2A8PLZuAJZb">
