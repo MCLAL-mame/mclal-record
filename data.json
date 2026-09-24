@@ -1157,11 +1157,12 @@
         "title": "枪炮、病菌与钢铁",
         "rating": 0,
         "status": "在看",
-        "category": "",
+        "category": "其他",
         "date": "2026-09-04",
         "review": "",
         "cover": "",
-        "coverPos": "50% 50%"
+        "coverPos": "50% 50%",
+        "coverZoom": 1
       }
     ]
   }
