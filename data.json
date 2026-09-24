@@ -58,6 +58,18 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1790240612800",
+        "title": "生化危机：维罗妮卡",
+        "rating": 0,
+        "status": "想玩",
+        "category": "",
+        "date": "2026-09-24",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%",
+        "coverZoom": 1
+      },
+      {
         "id": "games-1788582801718",
         "title": "最终幻想15",
         "rating": 0,
