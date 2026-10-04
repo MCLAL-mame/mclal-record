@@ -58,6 +58,18 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1791124556100",
+        "title": "生化危机5",
+        "rating": 7.5,
+        "status": "玩过",
+        "category": "PC",
+        "date": "2026-10-04",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%",
+        "coverZoom": 1
+      },
+      {
         "id": "games-1790240612800",
         "title": "生化危机：维罗妮卡",
         "rating": 0,
