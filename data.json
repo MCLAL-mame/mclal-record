@@ -470,6 +470,18 @@
     ],
     "film::2026": [
       {
+        "id": "film-1791349714577",
+        "title": "七宗罪",
+        "rating": 9.5,
+        "status": "看了",
+        "category": "电影",
+        "date": "2026-10-06",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%",
+        "coverZoom": 1
+      },
+      {
         "id": "film-1789736561949",
         "title": "远山的呼唤",
         "rating": 0,
