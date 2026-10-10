@@ -466,9 +466,9 @@
         "category": "电影",
         "date": "2026-10-07",
         "review": "",
-        "cover": "",
+        "cover": "https://raw.githubusercontent.com/MCLAL-mame/mclal-record/main/images/cover-1791624122452-6439.jpg",
         "coverPos": "50% 50%",
-        "coverZoom": 1
+        "coverZoom": 0.5
       },
       {
         "id": "film-1791609338192",
