@@ -470,6 +470,18 @@
     ],
     "film::2026": [
       {
+        "id": "film-1791614442786",
+        "title": "生化危机：爆发夜",
+        "rating": 8,
+        "status": "看了",
+        "category": "电影",
+        "date": "2026-10-07",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%",
+        "coverZoom": 1
+      },
+      {
         "id": "film-1791609338192",
         "title": "碧蓝之海—第3季",
         "rating": 9,
