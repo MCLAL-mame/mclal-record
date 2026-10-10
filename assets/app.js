@@ -250,8 +250,8 @@
 
     grid.innerHTML = list.map(function (it) {
       var cover = it.cover
-        ? '<div class="cover"><img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:auto;display:block"></div>'
-        : '<div class="cover cover-emoji">' + escapeHtml(b.emoji) + "</div>";
+        ? '<div class="cover"><img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:cover;object-position:' + (it.coverPos || "50% 50%") + '"></div>'
+        : '<div class="cover">' + escapeHtml(b.emoji) + "</div>";
       var score = it.rating > 0
         ? '<span class="stars">' + stars10(it.rating) + '</span><span class="score">' + Number(it.rating) + "/10</span>" : "";
       var note = it.review ? '<p class="note">' + escapeHtml(brief(it.review, 40)) + "</p>" : "";
@@ -278,7 +278,7 @@
     var b = boardOf(f.boardKey), it = f.rec;
     detailId = id;
     $("detailCover").innerHTML = it.cover
-      ? '<img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:auto;display:block;border-radius:12px">'
+      ? '<img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:cover;object-position:' + (it.coverPos || "50% 50%") + ';border-radius:12px">'
       : escapeHtml(b.emoji);
     $("detailTitle").textContent = it.title || "（无标题）";
     var score = it.rating > 0
