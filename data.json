@@ -501,8 +501,8 @@
         "category": "电影",
         "date": "2026-10-02",
         "review": "",
-        "cover": "",
-        "coverPos": "50% 50%",
+        "cover": "https://raw.githubusercontent.com/MCLAL-mame/mclal-record/main/images/cover-1791615150961-9531.jpg",
+        "coverPos": "50% 45%",
         "coverZoom": 1
       },
       {
