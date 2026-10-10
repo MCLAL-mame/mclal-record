@@ -48,12 +48,21 @@ body {
 }
 .site-header h1 {
   margin: 0;
+  display: inline-block;
   font-family: "ZCOOL KuaiLe", "PingFang SC", "Microsoft YaHei", sans-serif;
   font-size: 46px;
   font-weight: 400;
   letter-spacing: 2px;
   color: #fff;
   text-shadow: 0 2px 18px rgba(25, 50, 75, .55), 0 0 40px rgba(70, 110, 145, .35);
+}
+.site-header h1::after {
+  content: ""; display: block; height: 3px; margin: 8px auto 0; width: 70%;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.site-seal {
+  width: 34px; height: 34px; vertical-align: middle; margin: 0 12px 6px 0;
+  fill: var(--gold); filter: drop-shadow(0 1px 6px rgba(25, 50, 75, .5));
 }
 .subtitle {
   margin: 12px 0 0;
@@ -114,10 +123,14 @@ body {
 
 /* 网格 / 卡片 */
 .grid {
-  display: grid; gap: 18px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  display: grid; gap: 14px;
+  grid-template-columns: repeat(6, 1fr);
   padding-bottom: 40px;
 }
+/* 窄屏降级：桌面固定 6 列，手机/平板自动减少以免卡片过小 */
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 620px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 420px) { .grid { grid-template-columns: repeat(2, 1fr); } }
 .card {
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
   box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column;
@@ -125,29 +138,34 @@ body {
 }
 .card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(70, 100, 90, .1); border-color: var(--accent-soft); }
 .cover {
-  height: 120px; background: var(--accent-soft); display: flex; align-items: center;
-  justify-content: center; font-size: 38px; color: var(--accent);
+  aspect-ratio: 3 / 4; background: var(--surface); display: flex; align-items: center;
+  justify-content: center; font-size: 40px; color: var(--accent);
 }
+.cover img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .cover-upload { display: flex; gap: 8px; margin-top: 8px; }
 .cover-preview { width: 100%; max-height: 160px; object-fit: cover; border-radius: 10px; margin-top: 8px; border: 1px solid var(--border); cursor: crosshair; }
 .cover-hint { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
-.card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; }
+.card-body { padding: 11px 12px 13px; display: flex; flex-direction: column; gap: 7px; }
 .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
-.card-title { font-size: 16px; font-weight: 600; margin: 0; line-height: 1.4; }
+.card-title { font-size: 14px; font-weight: 600; margin: 0; line-height: 1.35;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .card-actions { display: flex; gap: 4px; flex-shrink: 0; }
 .card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
 .badge {
   padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600;
   background: var(--accent-soft); color: var(--accent);
 }
-.cat { font-size: 12px; padding: 2px 9px; border-radius: 999px; font-weight: 600; }
+.cat { font-size: 12px; padding: 2px 9px; border-radius: 999px; font-weight: 600; display: inline-flex; align-items: center; gap: 3px; }
+.cat .ic { width: 13px; height: 13px; display: inline-flex; flex: none; }
+.cat .ic svg { width: 13px; height: 13px; display: block; }
 .cat-ps { background: #e3edf7; color: #3f72b0; }
 .cat-ns { background: #fbe3e3; color: #c0504d; }
 .cat-pc { background: #e4f1e7; color: #4f8f63; }
 .cat-none { background: var(--line); color: var(--muted); }
 .score { color: var(--gold); font-weight: 600; font-size: 13px; }
 .stars { color: var(--gold); letter-spacing: 1px; font-size: 13px; }
-.note { font-size: 13.5px; color: var(--text); margin: 0; opacity: .82; }
+.note { font-size: 13px; color: var(--text); margin: 0; opacity: .82;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .date { font-size: 12px; color: var(--muted); }
 
 .mini {
