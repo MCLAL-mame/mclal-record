@@ -1190,6 +1190,18 @@
     ],
     "books::2026": [
       {
+        "id": "books-1791609268001",
+        "title": "再见绘梨",
+        "rating": 9,
+        "status": "看了",
+        "category": "",
+        "date": "2026-09-22",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%",
+        "coverZoom": 1
+      },
+      {
         "id": "books-1788534937077",
         "title": "枪炮、病菌与钢铁",
         "rating": 0,
