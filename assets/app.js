@@ -69,7 +69,10 @@
     // 取当前 SHA 时必须带令牌：未认证 GET 限额仅 60 次/小时，超限会 403，
     // 导致 sha 缺失、PUT 变成“更新却无 sha”而被 GitHub 拒收（HTTP 422）。
     fetch(u, { headers: ghHeaders() }).then(function (r) {
-      if (!r.ok) throw new Error("读取远端失败 HTTP " + r.status);
+      if (!r.ok) {
+        var hint = r.status === 401 ? "（令牌失效或无权限：请在管理模式重新点「设置令牌」填入有效 PAT）" : "（读取远端失败）";
+        throw new Error("HTTP " + r.status + hint);
+      }
       return r.json();
     }).then(function (j) {
       var sha = j && j.sha ? j.sha : undefined;
@@ -174,10 +177,21 @@
     "番剧": "#d98324", "电视剧": "#8a5cc4", "电影": "#2a9d8f",
     "小说": "#6b7c2a", "漫画": "#c46a2b", "其他": "#7a7a72"
   };
+  var CAT_ICONS = {
+    "PS": '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.4" fill="#fff"/></svg>',
+    "NS": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 8h10a4 4 0 0 1 4 4v1a3 3 0 0 1-5.2 2L14 14h-4l-1.8 1A3 3 0 0 1 3 13v-1a4 4 0 0 1 4-4z"/><circle cx="7.5" cy="11" r="1.1"/><circle cx="9.5" cy="13" r="1.1"/><path d="M15.5 10v3M14 11.5h3" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>',
+    "PC": '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M9 20h6M12 16v4" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>',
+    "番剧": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+    "电视剧": '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="5" width="18" height="13" rx="2"/><path d="M8 21h8" stroke="currentColor" stroke-width="1.6"/></svg>',
+    "电影": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9h18v10H3z"/><path d="M3 9l3-4h3l-3 4M12 5l3 4h-3" opacity=".85"/></svg>',
+    "小说": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 6c-2-1-5-1-7-1v13c2 0 5 0 7 1 2-1 5-1 7-1V5c-2 0-5 0-7 1z"/></svg>',
+    "漫画": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h7v16H4zM13 4h7v16h-7z"/></svg>'
+  };
   function catBadge(c) {
     if (!c) return "";
     var col = CAT_COLORS[c] || "#7a7a72";
-    return '<span class="cat" style="background:' + col + '1f;color:' + col + ';border:1px solid ' + col + '55">' + escapeHtml(c) + "</span>";
+    var ic = CAT_ICONS[c] ? '<span class="ic">' + CAT_ICONS[c] + "</span>" : "";
+    return '<span class="cat" style="background:' + col + '1f;color:' + col + ';border:1px solid ' + col + '55">' + ic + escapeHtml(c) + "</span>";
   }
   function sortList(list) {
     var s = state.sort;
@@ -236,7 +250,7 @@
 
     grid.innerHTML = list.map(function (it) {
       var cover = it.cover
-        ? '<div class="cover"><img src="' + escapeHtml(it.cover) + '" alt="" style="' + coverStyle(it.coverPos, it.coverZoom) + '"></div>'
+        ? '<div class="cover"><img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:contain;object-position:' + (it.coverPos || "50% 50%") + '"></div>'
         : '<div class="cover">' + escapeHtml(b.emoji) + "</div>";
       var score = it.rating > 0
         ? '<span class="stars">' + stars10(it.rating) + '</span><span class="score">' + Number(it.rating) + "/10</span>" : "";
@@ -264,7 +278,7 @@
     var b = boardOf(f.boardKey), it = f.rec;
     detailId = id;
     $("detailCover").innerHTML = it.cover
-      ? '<img src="' + escapeHtml(it.cover) + '" alt="" style="' + coverStyle(it.coverPos, it.coverZoom) + ';border-radius:12px">'
+      ? '<img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:contain;object-position:' + (it.coverPos || "50% 50%") + ';border-radius:12px">'
       : escapeHtml(b.emoji);
     $("detailTitle").textContent = it.title || "（无标题）";
     var score = it.rating > 0
