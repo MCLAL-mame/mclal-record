@@ -427,7 +427,7 @@
     if (p === ADMIN_PASS) { state.admin = true; adminBar.hidden = false; renderGrid(); }
     else if (p !== null) alert("密码错误");
   }
-  function exitAdmin() { state.admin = false; adminBar.hidden = true; renderGrid(); }
+  function exitAdmin() { state.admin = false; adminBar.hidden = true; if (detailId) $("detailActions").hidden = true; renderGrid(); }
   function exportData() {
     var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
     var a = document.createElement("a");
