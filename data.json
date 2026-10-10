@@ -576,13 +576,14 @@
       {
         "id": "film-1788581619946",
         "title": "楚门的世界",
-        "rating": 0,
-        "status": "待看",
+        "rating": 9,
+        "status": "看了",
         "category": "电影",
-        "date": "2026-09-05",
+        "date": "2026-10-08",
         "review": "",
         "cover": "",
-        "coverPos": "50% 50%"
+        "coverPos": "50% 50%",
+        "coverZoom": 1
       },
       {
         "id": "film-1788581572503",
