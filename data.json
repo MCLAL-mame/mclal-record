@@ -58,6 +58,18 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1791615547466",
+        "title": "双点博物馆",
+        "rating": 9,
+        "status": "玩过",
+        "category": "PS",
+        "date": "2026-10-10",
+        "review": "",
+        "cover": "https://raw.githubusercontent.com/MCLAL-mame/mclal-record/main/images/cover-1788954825131-8967.jpg",
+        "coverPos": "50% 50%",
+        "coverZoom": 1
+      },
+      {
         "id": "games-1791124556100",
         "title": "生化危机5",
         "rating": 7.5,
