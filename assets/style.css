@@ -138,10 +138,15 @@ body {
 }
 .card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(70, 100, 90, .1); border-color: var(--accent-soft); }
 .cover {
-  aspect-ratio: 3 / 4; background: var(--surface); display: flex; align-items: center;
-  justify-content: center; font-size: 40px; color: var(--accent); overflow: hidden;
+  aspect-ratio: 3 / 4; position: relative; background: var(--surface); display: flex;
+  align-items: center; justify-content: center; font-size: 40px; color: var(--accent); overflow: hidden;
 }
-.cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* 封面「模糊底图 + 完整前景图」：底图放大模糊填满整框（消除留白），前景图 object-fit:contain 完整不裁切 */
+.img-bg {
+  position: absolute; inset: -8%; width: 116%; height: 116%;
+  object-fit: cover; filter: blur(16px) saturate(1.15) brightness(.92);
+}
+.img-fg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .cover-upload { display: flex; gap: 8px; margin-top: 8px; }
 .cover-preview { width: 100%; max-height: 160px; object-fit: cover; border-radius: 10px; margin-top: 8px; border: 1px solid var(--border); cursor: crosshair; }
 .cover-hint { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
@@ -224,7 +229,7 @@ body {
 
 /* 详情弹窗 */
 .detail-cover {
-  height: 150px; background: var(--accent-soft); display: flex; align-items: center;
+  height: 150px; position: relative; background: var(--accent-soft); display: flex; align-items: center;
   justify-content: center; font-size: 50px; color: var(--accent); border-radius: 12px; margin-bottom: 14px;
   overflow: hidden;
 }
@@ -267,11 +272,11 @@ html[data-theme="dark"] body::after { display: none; }
 .cover-col { flex: 1; min-width: 230px; }
 .cover-cap { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
 .cover-result {
-  width: 100%; max-width: 300px; height: 170px; border-radius: 12px; overflow: hidden;
+  width: 100%; max-width: 200px; aspect-ratio: 3 / 4; border-radius: 12px; overflow: hidden;
   border: 1px solid var(--border); background: var(--accent-soft); position: relative; cursor: grab;
 }
 .cover-result:active { cursor: grabbing; }
-.cover-result img { width: 100%; height: 100%; object-fit: cover; display: block; transform-origin: 50% 50%; }
+.cover-result img { width: 100%; height: 100%; object-fit: contain; display: block; transform-origin: 50% 50%; }
 .cover-source {
   width: 300px; max-width: 100%; height: 200px; border-radius: 12px; overflow: hidden;
   border: 1px solid var(--border); background: #eee; background-size: contain; background-repeat: no-repeat;
