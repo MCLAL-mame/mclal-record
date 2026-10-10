@@ -250,7 +250,7 @@
 
     grid.innerHTML = list.map(function (it) {
       var cover = it.cover
-        ? '<div class="cover"><img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:contain;object-position:' + (it.coverPos || "50% 50%") + '"></div>'
+        ? '<div class="cover"><img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:cover;object-position:' + (it.coverPos || "50% 50%") + '"></div>'
         : '<div class="cover">' + escapeHtml(b.emoji) + "</div>";
       var score = it.rating > 0
         ? '<span class="stars">' + stars10(it.rating) + '</span><span class="score">' + Number(it.rating) + "/10</span>" : "";
@@ -278,7 +278,7 @@
     var b = boardOf(f.boardKey), it = f.rec;
     detailId = id;
     $("detailCover").innerHTML = it.cover
-      ? '<img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:contain;object-position:' + (it.coverPos || "50% 50%") + ';border-radius:12px">'
+      ? '<img src="' + escapeHtml(it.cover) + '" alt="" style="width:100%;height:100%;object-fit:cover;object-position:' + (it.coverPos || "50% 50%") + ';border-radius:12px">'
       : escapeHtml(b.emoji);
     $("detailTitle").textContent = it.title || "（无标题）";
     var score = it.rating > 0
@@ -538,8 +538,8 @@
   function coverStyle(pos, zoom) {
     var p = pos || "50% 50%", z = zoom || 1;
     if (z < 1) {
-      // <1×：完整显示整张图（letterbox，可能留白边）
-      return "width:100%;height:100%;object-fit:contain;object-position:" + p;
+      // 预览：填满编辑框（裁掉溢出，与卡片/详情显示一致）
+      return "width:100%;height:100%;object-fit:cover;object-position:" + p;
     }
     return "width:100%;height:100%;object-fit:cover;object-position:" + p + ";transform:scale(" + z + ");transform-origin:" + p;
   }
