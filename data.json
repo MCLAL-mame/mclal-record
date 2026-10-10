@@ -470,6 +470,18 @@
     ],
     "film::2026": [
       {
+        "id": "film-1791609338192",
+        "title": "碧蓝之海—第3季",
+        "rating": 9,
+        "status": "看了",
+        "category": "番剧",
+        "date": "2026-10-06",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%",
+        "coverZoom": 1
+      },
+      {
         "id": "film-1791609302243",
         "title": "迈克尔杰克逊：巨星之路",
         "rating": 8.5,
