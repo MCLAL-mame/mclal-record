@@ -125,6 +125,7 @@ body {
 .grid {
   display: grid; gap: 14px;
   grid-template-columns: repeat(6, 1fr);
+  align-items: start;
   padding-bottom: 40px;
 }
 /* 窄屏降级：桌面固定 6 列，手机/平板自动减少以免卡片过小 */
@@ -137,11 +138,13 @@ body {
   cursor: pointer; transition: transform .15s, box-shadow .15s, border-color .15s;
 }
 .card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(70, 100, 90, .1); border-color: var(--accent-soft); }
-.cover {
-  aspect-ratio: 3 / 4; background: var(--surface); display: flex; align-items: center;
+.cover { background: var(--surface); display: block; }
+.cover img { width: 100%; height: auto; display: block; }
+/* 无配图时的 emoji 占位：保留 3:4 框，避免塌成一条 */
+.cover-emoji {
+  aspect-ratio: 3 / 4; display: flex; align-items: center;
   justify-content: center; font-size: 40px; color: var(--accent);
 }
-.cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .cover-upload { display: flex; gap: 8px; margin-top: 8px; }
 .cover-preview { width: 100%; max-height: 160px; object-fit: cover; border-radius: 10px; margin-top: 8px; border: 1px solid var(--border); cursor: crosshair; }
 .cover-hint { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
@@ -224,10 +227,11 @@ body {
 
 /* 详情弹窗 */
 .detail-cover {
-  height: 150px; background: var(--accent-soft); display: flex; align-items: center;
+  min-height: 150px; background: var(--accent-soft); display: flex; align-items: center;
   justify-content: center; font-size: 50px; color: var(--accent); border-radius: 12px; margin-bottom: 14px;
   overflow: hidden;
 }
+.detail-cover img { width: 100%; height: auto; display: block; }
 .detail-title { font-size: 20px; font-weight: 700; margin: 0 0 8px; }
 .detail-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
 .detail-review { font-size: 14.5px; line-height: 1.8; white-space: pre-wrap; color: var(--text); }
