@@ -141,7 +141,7 @@ body {
   aspect-ratio: 3 / 4; background: var(--surface); display: flex; align-items: center;
   justify-content: center; font-size: 40px; color: var(--accent);
 }
-.cover img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .cover-upload { display: flex; gap: 8px; margin-top: 8px; }
 .cover-preview { width: 100%; max-height: 160px; object-fit: cover; border-radius: 10px; margin-top: 8px; border: 1px solid var(--border); cursor: crosshair; }
 .cover-hint { font-size: 12px; color: var(--muted); margin: 6px 0 0; }
