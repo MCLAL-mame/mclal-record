@@ -462,6 +462,18 @@
     ],
     "film::2026": [
       {
+        "id": "film-1791995537945",
+        "title": "诺曼底72小时",
+        "rating": 0,
+        "status": "待看",
+        "category": "电影",
+        "date": "2026-10-14",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%",
+        "coverZoom": 1
+      },
+      {
         "id": "film-1791995479393",
         "title": "黑客帝国",
         "rating": 0,
