@@ -61,6 +61,18 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1792321956129",
+        "title": "8020号指令",
+        "rating": 0,
+        "status": "想玩",
+        "category": "",
+        "date": "2026-10-18",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%",
+        "coverZoom": 1
+      },
+      {
         "id": "games-1791124556100",
         "title": "生化危机5",
         "rating": 7.5,
