@@ -1279,6 +1279,18 @@
     ],
     "books::2026": [
       {
+        "id": "books-1792722817519",
+        "title": "真幌站前多田便利屋",
+        "rating": 8.5,
+        "status": "看了",
+        "category": "",
+        "date": "2026-10-21",
+        "review": "",
+        "cover": "",
+        "coverPos": "50% 50%",
+        "coverZoom": 1
+      },
+      {
         "id": "books-1791609268001",
         "title": "再见绘梨",
         "rating": 9,
