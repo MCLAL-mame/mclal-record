@@ -1279,6 +1279,18 @@
     ],
     "books::2026": [
       {
+        "id": "books-1794153552866",
+        "title": "筚路维艰 中国社会主义路径的五次选择",
+        "rating": 9.5,
+        "status": "在看",
+        "category": "社科",
+        "date": "2026-11-08",
+        "review": "",
+        "cover": "https://raw.githubusercontent.com/MCLAL-mame/mclal-record/main/images/cover-1794153529328-4274.jpg",
+        "coverPos": "50% 50%",
+        "coverZoom": 1
+      },
+      {
         "id": "books-1792722817519",
         "title": "真幌站前多田便利屋",
         "rating": 8.5,
