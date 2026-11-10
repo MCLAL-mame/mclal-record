@@ -61,6 +61,18 @@
   "records": {
     "games::2026": [
       {
+        "id": "games-1794312627704",
+        "title": "人中之龙0：誓约的场所 导演剪辑版",
+        "rating": 10,
+        "status": "玩过",
+        "category": "PC",
+        "date": "2026-11-10",
+        "review": "",
+        "cover": "https://raw.githubusercontent.com/MCLAL-mame/mclal-record/main/images/cover-1794312591591-2916.jpg",
+        "coverPos": "50% 50%",
+        "coverZoom": 0.67
+      },
+      {
         "id": "games-1792566112660",
         "title": "苏丹的游戏",
         "rating": 0,
